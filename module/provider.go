@@ -1,6 +1,6 @@
 package module
 
-import "terraformRunner/model"
+import "github.com/codingXiang/go-terraform-runner    /model"
 
 type Provider map[string]interface{}
 

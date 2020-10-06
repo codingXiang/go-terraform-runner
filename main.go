@@ -5,10 +5,10 @@ package main
 //	"github.com/codingXiang/go-logger"
 //	"github.com/codingXiang/go-orm"
 //	"log"
-//	"terraformRunner/model"
-//	"terraformRunner/module"
-//	"terraformRunner/runner"
-//	"terraformRunner/storage"
+//	"github.com/codingXiang/go-terraform-runner    /model"
+//	"github.com/codingXiang/go-terraform-runner    /module"
+//	"github.com/codingXiang/go-terraform-runner    /runner"
+//	"github.com/codingXiang/go-terraform-runner    /storage"
 //)
 //
 //func init() {

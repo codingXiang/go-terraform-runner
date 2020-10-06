@@ -5,8 +5,8 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"io"
 	"os"
-	"terraformRunner/model"
-	"terraformRunner/module"
+	"github.com/codingXiang/go-terraform-runner    /model"
+	"github.com/codingXiang/go-terraform-runner    /module"
 )
 
 const (

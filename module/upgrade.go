@@ -3,7 +3,7 @@ package module
 import (
 	"fmt"
 	"github.com/spf13/viper"
-	"terraformRunner/model"
+	"github.com/codingXiang/go-terraform-runner    /model"
 )
 
 const (

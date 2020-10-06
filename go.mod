@@ -1,4 +1,4 @@
-module terraformRunner
+module github.com/codingXiang/go-terraform-runner    
 
 go 1.14
 
