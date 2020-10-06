@@ -1,0 +1,11 @@
+worker:
+  namespace: rms
+  concurrency: 10
+redis:
+  maxActive: 5
+  maxIdle: 5
+  wait: true
+  network: tcp
+  url: '127.0.0.1'
+  port: 6379
+  password: 'a12345'

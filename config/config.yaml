@@ -1,0 +1,25 @@
+mongo:
+  url: 127.0.0.1
+  port: 27017
+  username:
+  password:
+  database: terraform
+  mode: Primary
+database:
+  url: '127.0.0.1'
+  port: 3306
+  name: 'ops_v1'
+  username: 'root'
+  password: 'a12345'
+  type: 'mysql'
+  tablePrefix: ""
+  maxOpenConns: 1000
+  maxIdleConns: 1000
+  maxLifeTime: 5
+  logMode: true
+  version: "0.0.2"
+log:
+  level: "info"
+  format: "text"
+  path: "log"
+  filename: "rent.log"
