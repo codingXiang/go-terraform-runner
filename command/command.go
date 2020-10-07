@@ -1,8 +1,8 @@
 package command
 
 import (
+	"github.com/codingXiang/go-terraform-runner/util"
 	"github.com/codingXiang/go-workflow"
-	"github.com/codingXiang/go-terraform-runner    /util"
 )
 
 const (

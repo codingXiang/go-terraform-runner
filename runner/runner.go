@@ -2,23 +2,24 @@ package runner
 
 import (
 	"encoding/json"
-	"github.com/codingXiang/go-logger"
-	"github.com/codingXiang/go-workflow"
-	"github.com/hashicorp/go-uuid"
 	"io/ioutil"
 	"os"
-	"github.com/codingXiang/go-terraform-runner    /command"
-	"github.com/codingXiang/go-terraform-runner    /storage"
+
+	"github.com/codingXiang/go-logger"
+	"github.com/codingXiang/go-terraform-runner/command"
+	"github.com/codingXiang/go-terraform-runner/storage"
+	"github.com/codingXiang/go-workflow"
+	"github.com/hashicorp/go-uuid"
 )
 
-type github.com/codingXiang/go-terraform-runner     struct {
+type TerraformRunner struct {
 	ID     string
 	worker *workflow.Workflow
 	src    *storage.ConfigSource
 }
 
-func New(src *storage.ConfigSource, id string) *github.com/codingXiang/go-terraform-runner     {
-	r := new(github.com/codingXiang/go-terraform-runner    )
+func New(src *storage.ConfigSource, id string) *TerraformRunner {
+	r := new(TerraformRunner)
 	if id != "" {
 		r.ID = id
 	} else {
@@ -27,7 +28,7 @@ func New(src *storage.ConfigSource, id string) *github.com/codingXiang/go-terraf
 	return r.init(src)
 }
 
-func (r *github.com/codingXiang/go-terraform-runner    ) init(src *storage.ConfigSource) *github.com/codingXiang/go-terraform-runner     {
+func (r *TerraformRunner) init(src *storage.ConfigSource) *TerraformRunner {
 	r.worker = r.StepWorkflow()
 	r.src = src
 	err := os.MkdirAll(r.ID, os.ModePerm)
@@ -37,18 +38,18 @@ func (r *github.com/codingXiang/go-terraform-runner    ) init(src *storage.Confi
 	return r
 }
 
-func (r *github.com/codingXiang/go-terraform-runner    ) generateID() string {
+func (r *TerraformRunner) generateID() string {
 	id, _ := uuid.GenerateUUID()
 	return id
 }
 
-func (r *github.com/codingXiang/go-terraform-runner    ) StepWorkflow() *workflow.Workflow {
+func (r *TerraformRunner) StepWorkflow() *workflow.Workflow {
 	w := workflow.New()
 	w.OnFailure = workflow.RetryFailure(1)
 	return w
 }
 
-func (r *github.com/codingXiang/go-terraform-runner    ) AddStep(command command.Command) *github.com/codingXiang/go-terraform-runner     {
+func (r *TerraformRunner) AddStep(command command.Command) *TerraformRunner {
 	command = setCommandPath(command, r.ID)
 	step := new(workflow.Step)
 	step.Label = command.GetMeta().Label
@@ -57,15 +58,15 @@ func (r *github.com/codingXiang/go-terraform-runner    ) AddStep(command command
 	return r
 }
 
-func (r *github.com/codingXiang/go-terraform-runner    ) Run() error {
+func (r *TerraformRunner) Run() error {
 	return r.worker.Run()
 }
 
-func (r *github.com/codingXiang/go-terraform-runner    ) Clean() error {
+func (r *TerraformRunner) Clean() error {
 	return os.RemoveAll(r.ID)
 }
 
-func (r *github.com/codingXiang/go-terraform-runner    ) ModifyExistProject() error {
+func (r *TerraformRunner) ModifyExistProject() error {
 	data, err := r.src.GetConfigRecord("config", r.ID)
 	if err != nil {
 		return err

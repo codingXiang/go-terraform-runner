@@ -1,12 +1,13 @@
 package storage
 
 import (
-	"github.com/hashicorp/go-uuid"
-	"gopkg.in/mgo.v2/bson"
 	"io"
 	"os"
-	"github.com/codingXiang/go-terraform-runner    /model"
-	"github.com/codingXiang/go-terraform-runner    /module"
+
+	"github.com/codingXiang/go-terraform-runner/model"
+	"github.com/codingXiang/go-terraform-runner/module"
+	"github.com/hashicorp/go-uuid"
+	"gopkg.in/mgo.v2/bson"
 )
 
 const (
