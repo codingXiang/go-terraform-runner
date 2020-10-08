@@ -1,0 +1,61 @@
+{
+ "module": {
+  "group": {
+   "name": "${var.gitlab-cloud-group-name}",
+   "path": "${var.gitlab-cloud-group-path}",
+   "providers": {
+    "gitlab": "gitlab.cloud"
+   },
+   "source": "git::https://gitlab.digiwincloud.com.cn/terraform-module/gitlab.git//group"
+  },
+  "project": {
+   "name": "${var.gitlab-cloud-project-name}",
+   "namespace_id": "${module.group.id}",
+   "providers": {
+    "gitlab": "gitlab.cloud"
+   },
+   "source": "git::https://gitlab.digiwincloud.com.cn/terraform-module/gitlab.git//project"
+  }
+ },
+ "output": {
+  "group": {
+   "value": "${module.group}"
+  },
+  "project": {
+   "value": "${module.project}"
+  }
+ },
+ "provider": {
+  "gitlab": [
+   {
+    "alias": "cloud",
+    "base_url": "https://gitlab.digiwincloud.com.cn",
+    "token": "QXPnPBozNcwmqCb3ytTf"
+   }
+  ]
+ },
+ "terraform": [
+  {
+   "required_providers": {
+    "gitlab": {
+     "source": "terraform-providers/gitlab"
+    }
+   },
+   "required_version": "\u003e= 0.13"
+  }
+ ],
+ "variable": {
+  "gitlab-cloud-group-name": {
+   "default": "@group_name@",
+   "description": ""
+  },
+  "gitlab-cloud-group-path": {
+   "default": "@group_path@",
+   "description": ""
+  },
+  "gitlab-cloud-project-name": {
+   "default": "@project_name@",
+   "description": ""
+  }
+ }
+}

@@ -2,7 +2,7 @@ package module
 
 import (
 	"fmt"
-	"github.com/codingXiang/go-terraform-runner    /model"
+	"github.com/codingXiang/go-terraform-runner/model"
 )
 
 const (
