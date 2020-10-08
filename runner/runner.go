@@ -72,7 +72,19 @@ func (r *TerraformRunner) ModifyExistProject() error {
 		return err
 	}
 	m, _ := json.MarshalIndent(data.Config, "", " ")
-	return ioutil.WriteFile(r.ID+"/"+r.ID+".tf.json", m, 0666)
+	err = ioutil.WriteFile(r.ID+"/"+r.ID+".tf.json", m, 0666)
+	if err != nil {
+		return err
+	}
+	if data.State != nil {
+		m, _ := json.MarshalIndent(data.State, "", " ")
+		err = ioutil.WriteFile(r.ID+"/terraform.tfstate", m, 0666)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func setCommandPath(command command.Command, path string) command.Command {
