@@ -6,7 +6,7 @@ type TerraformProvider struct {
 	Alias   string                     `json:"alias" gorm:"comment:'使用分區'"`
 	Source  string                     `json:"source" gorm:"comment:'來源'"`
 	Datas   []TerraformProviderData    `json:"datas"`
-	Upgrade []TerraformProviderUpgrade `json:'upgrade'`
+	Upgrade []TerraformProviderUpgrade `json:"upgrade"`
 }
 
 type TerraformProviderData struct {
