@@ -36,7 +36,7 @@ func NewModule(name string) *ModuleEntity {
 //}
 
 func NewModuleWithVar(v *model.TerraformModule) *ModuleEntity {
-	m := NewModule(v.ID).init(v)
+	m := NewModule(v.Name).init(v)
 	if v.Source == "" {
 		m.SetSource(v.Provider.Source)
 	} else {
@@ -46,6 +46,15 @@ func NewModuleWithVar(v *model.TerraformModule) *ModuleEntity {
 }
 
 func (e *ModuleEntity) init(v *model.TerraformModule) *ModuleEntity {
+	if v.RealData != nil {
+		for _, data := range v.RealData {
+			varID := fmt.Sprintf("%s-%s-%s-%s", v.Provider.Name, v.Provider.Alias, data.TerraformModuleID, data.Key)
+			va := NewVariableEntity(varID, data.Value, "")
+			e.Vars = append(e.Vars, va)
+			e.AddData(data.Key, va.GetRef())
+		}
+		return e
+	}
 	for _, data := range v.Datas {
 		if data.IsModuleLink {
 			e.AddData(data.Key, data.Default)

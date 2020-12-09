@@ -2,8 +2,17 @@ package module
 
 import "encoding/json"
 
+type ConfigComponent int
+
+const (
+	T_VARIABLE ConfigComponent = iota
+	T_PROVIDER
+	T_MODULE
+	T_OUTPUT
+)
+
 type Config struct {
-	Terraform []upgrade            `json:"terraform,omitempty"`
+	Terraform []upgrade             `json:"terraform,omitempty"`
 	Variable  map[string]*Variable  `json:"variable,omitempty"`
 	Provider  map[string][]Provider `json:"provider,omitempty"`
 	Module    map[string]Module     `json:"module,omitempty"`
@@ -20,14 +29,30 @@ func NewConfig() *Config {
 	}
 }
 
+
+func (m *Config) ReplaceParameter(t ConfigComponent, params ...map[string]interface{}) *Config {
+	switch t {
+	case T_MODULE:
+		break
+	case T_PROVIDER:
+		break
+	case T_VARIABLE:
+		break
+	case T_OUTPUT:
+		break
+	}
+	return m
+}
+
 //AddVariable 動態增加 Variable
 //   - v : Variable 模組
 func (m *Config) AddVariable(v *VariableEntity) *Config {
 	m.Variable[v.Key] = v.New()
 	return m
 }
+
 //AddMultipleVariable 批次加入 Variable
-func (m *Config) AddMultipleVariable(vs... *VariableEntity) *Config {
+func (m *Config) AddMultipleVariable(vs ...*VariableEntity) *Config {
 	for _, v := range vs {
 		m.AddVariable(v)
 	}

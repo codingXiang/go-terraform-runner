@@ -57,7 +57,7 @@ func (c *ConfigSource) GetProvider(name, alias string) (*model.TerraformProvider
 	return result, err
 }
 
-func (c *ConfigSource) GetModule(provider *model.TerraformProvider, moduleName ...string) ([]*model.TerraformModule, error) {
+func (c *ConfigSource) GetModule(provider *model.TerraformProvider, alias ...string) ([]*model.TerraformModule, error) {
 	result := make([]*model.TerraformModule, 0)
 	db := c.orm
 	if provider != nil {
@@ -66,11 +66,11 @@ func (c *ConfigSource) GetModule(provider *model.TerraformProvider, moduleName .
 		db = db.Preload("Provider").Preload("Datas")
 	}
 
-	for index, n := range moduleName {
+	for index, n := range alias {
 		if index > 0 {
-			db = db.Or("id = ?", n)
+			db = db.Or("alias = ?", n)
 		} else {
-			db = db.Where("id = ?", n)
+			db = db.Where("alias = ?", n)
 		}
 	}
 	err := db.Find(&result).Error

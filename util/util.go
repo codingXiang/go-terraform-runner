@@ -1,7 +1,7 @@
 package util
 
 import (
-	"github.com/codingXiang/go-logger"
+	"github.com/codingXiang/go-logger/v2"
 	"os/exec"
 )
 
